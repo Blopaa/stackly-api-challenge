@@ -7,6 +7,9 @@ import {
   ClassSerializerInterceptor,
   BadRequestException,
 } from '@nestjs/common';
+import { ApiCreatedResponse } from '@nestjs/swagger';
+import { Skill } from './skill.entity';
+
 import { CreateSkillDto } from './dto';
 import { SkillsService } from './skills.service';
 
@@ -18,6 +21,7 @@ export class SkillsController {
     private readonly skillsService: SkillsService,
   ) {}
 
+  @ApiCreatedResponse({ type: Skill })
   @Post('register')
   async create(@Body() skill: CreateSkillDto) {
     try {
