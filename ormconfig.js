@@ -16,4 +16,9 @@ module.exports = {
   url,
   port,
   synchronize: isDev,
+  entities: ['src/**/*.entity.ts', 'dist/**/*.entity.js'],
+  migrations: ['src/migration/**/*.ts', 'dist/migration/**/*.js'],
+  cli: {
+    migrationsDir: 'src/migration',
+  },
 };
