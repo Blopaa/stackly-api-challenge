@@ -41,6 +41,7 @@ export class UserService {
     try {
       return await this.userRepository.save(user);
     } catch (err) {
+      console.log(err);
       throw new BadRequestException(
         'already exist account with the same email',
       );
