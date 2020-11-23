@@ -15,14 +15,28 @@ import { AuthModule } from './auth/auth.module';
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'postgres',
-        url: configService.get('DATABASE_URL'),
-        ssl: {
-          rejectUnauthorized: configService.get('NODE_ENV') !== 'production',
-        },
-        entities: [Skill, User],
-      }),
+      async useFactory(configService: ConfigService) {
+        if (configService.get('NODE_ENV') !== 'production') {
+          return {
+            type: 'postgres',
+            username: 'stackly',
+            password: 'stackly',
+            database: 'stackly',
+            synchronize: true,
+            entities: [Skill, User],
+          };
+        }
+
+        return {
+          type: 'postgres',
+          url: configService.get('DATABASE_URL'),
+          synchronize: false,
+          extra: {
+            ssl: true,
+          },
+          entities: [Skill, User],
+        };
+      },
       inject: [ConfigService],
     }),
     UserModule,
