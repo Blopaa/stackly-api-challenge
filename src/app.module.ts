@@ -31,6 +31,7 @@ import { AuthModule } from './auth/auth.module';
           type: 'postgres',
           url: configService.get('DATABASE_URL'),
           synchronize: false,
+          autoLoadEntities: true,
           entities: [Skill, User],
         };
       },
