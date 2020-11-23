@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  pg:
+    container_name: api_db
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: stackly
+      POSTGRES_PASSWORD: stackly
+    logging:
+      driver: none
